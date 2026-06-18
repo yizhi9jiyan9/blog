@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const interests = ['平面设计', '巴洛克', '哥特式', '中式', 'Attention', '新古典主义', '现代主义', 'Minecraft', 'NeuroDiversity', 'Explore', '唐朝'];
+---
+
+<BaseLayout title="关于 | Ad infinitum" description="关于这个个人网站和它的审美方向">
+  <section class="relative min-h-screen overflow-hidden px-6 pb-24 pt-40 sm:px-12 lg:px-[240px] lg:pt-52">
+    <div class="slash-field pointer-events-none absolute -left-8 top-20 font-display text-[14vw] leading-none">
+      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    </div>
+    <div class="relative z-10 max-w-5xl">
+      <p class="font-garamond text-sm font-bold uppercase tracking-[0.45em] text-[color:var(--color-soft)]">About</p>
+      <h1 class="mt-5 font-cn text-6xl font-light leading-tight text-[color:var(--color-text)] sm:text-8xl">关于</h1>
+      <p class="mt-10 max-w-3xl font-cn text-2xl font-light leading-loose text-[color:var(--color-muted)]">
+        这里会成为一个偏个人表达的空间：记录文章、设计、兴趣和一些向着远方的想法。整体视觉会保留 Figma 里中英文混排、衬线字体和明暗主题的气质。
+      </p>
+    </div>
+    <div class="relative z-10 mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {interests.map((item) => (
+        <span class="border border-[color:var(--color-line)] px-5 py-4 font-cn text-2xl font-light text-[color:var(--color-text)]">
+          {item}
+        </span>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

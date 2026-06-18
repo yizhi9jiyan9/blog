@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&family=Gloock&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Source Han Serif CN Local';
+  src: url('/fonts/SourceHanSerifCN-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #000000;
+  --color-muted: #575757;
+  --color-soft: #a8a8a8;
+  --color-line: #4d4d4d;
+  --font-display: 'Gloock', serif;
+  --font-garamond: 'EB Garamond', Garamond, serif;
+  --font-cn: 'Noto Serif SC', 'Source Han Serif CN', serif;
+  --font-cn-local: 'Source Han Serif CN Local', 'Source Han Serif CN', 'Noto Serif SC', serif;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-bg: #1a1a1a;
+  --color-surface: #1a1a1a;
+  --color-text: #ffffff;
+  --color-muted: #a8a8a8;
+  --color-soft: #808080;
+  --color-line: #a8a8a8;
+}
+
+@theme {
+  --font-display: var(--font-display);
+  --font-garamond: var(--font-garamond);
+  --font-cn: var(--font-cn);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--color-bg);
+  font-family: var(--font-cn);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.slash-field {
+  color: rgba(255, 255, 255, 0.9);
+  filter: blur(5.65px);
+}
+
+.keyword-field {
+  font-family: var(--font-cn-local);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-stroke: 0.7px #8d8d8d;
+}
+
+.dark .keyword-field {
+  -webkit-text-stroke: 0.9px #7e7e7e;
+}
+
+.pattern-grid {
+  background-image:
+    linear-gradient(90deg, rgba(128, 128, 128, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(128, 128, 128, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.home-hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.home-artboard {
+  container-type: inline-size;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(100vw, 177.7778svh);
+  height: min(56.25vw, 100svh);
+  min-width: 960px;
+  min-height: 540px;
+  transform: translate(-50%, -50%);
+}
+
+.home-slash {
+  position: absolute;
+  left: 13.8542%;
+  top: 35.463%;
+  width: 48.4375%;
+  height: 14.1667%;
+  font-size: 7.2917cqw;
+}
+
+.home-keywords {
+  position: absolute;
+  left: -15.125%;
+  top: 0.3148%;
+  width: 155%;
+  white-space: pre;
+  font-size: 13.0313cqw;
+  line-height: 1.145;
+}
+
+.home-heading {
+  position: absolute;
+  left: 12.5%;
+  top: 28.4259%;
+}
+
+.home-heading h1 {
+  font-size: 6.6667cqw;
+}
+
+.home-heading p {
+  margin-top: 0.16em;
+  font-size: 2.5cqw;
+}
+
+.home-quote {
+  position: absolute;
+  left: 57.5%;
+  top: 78.3333%;
+  width: 40.8333%;
+  font-size: 1.875cqw;
+}
+
+.home-quote span {
+  margin-left: 0.65em;
+  font-size: 0.72em;
+}
+
+@media (max-width: 700px) {
+  .site-nav-items {
+    left: 12px;
+    gap: 4px;
+    transform: scale(0.58);
+    transform-origin: left top;
+  }
+
+  .site-nav-item {
+    width: 112px;
+  }
+
+  .home-artboard {
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100svh;
+    min-width: 0;
+    min-height: 720px;
+    transform: none;
+  }
+
+  .home-keywords {
+    left: -18vw;
+    top: 18svh;
+    width: 160vw;
+    white-space: pre;
+    font-size: clamp(83px, 28.875vw, 137px);
+    line-height: 1.08;
+    opacity: 0.72;
+  }
+
+  .home-slash {
+    left: 7vw;
+    top: 42svh;
+    width: 100vw;
+    font-size: 88px;
+  }
+
+  .home-heading {
+    left: 7vw;
+    top: 28svh;
+    width: 88vw;
+  }
+
+  .home-heading h1 {
+    font-size: clamp(54px, 17vw, 86px);
+  }
+
+  .home-heading p {
+    margin-top: 14px;
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  .home-quote {
+    bottom: 8svh;
+    left: 7vw;
+    top: auto;
+    width: 86vw;
+    font-size: clamp(20px, 6vw, 28px);
+  }
+
+  .home-quote span {
+    display: block;
+    margin-left: 0;
+    margin-top: 14px;
+    font-size: 0.72em;
+  }
+}

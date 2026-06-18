@@ -1,0 +1,38 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+}
+
+const { title, description, date, tags } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(date);
+---
+
+<BaseLayout title={`${title} | Ad infinitum`} description={description}>
+  <article class="mx-auto min-h-screen max-w-4xl px-6 pb-24 pt-40 sm:px-10 lg:pt-52">
+    <a href="/posts/" class="font-garamond text-sm uppercase tracking-[0.28em] text-[color:var(--color-muted)] hover:text-[color:var(--color-text)]">
+      Back to Articles
+    </a>
+    <header class="mt-12 border-b border-[color:var(--color-line)] pb-10">
+      <time class="font-garamond text-lg text-[color:var(--color-muted)]" datetime={date.toISOString()}>{formattedDate}</time>
+      <h1 class="mt-5 font-cn text-5xl font-light leading-tight text-[color:var(--color-text)] sm:text-7xl">{title}</h1>
+      <p class="mt-6 font-cn text-xl font-light leading-relaxed text-[color:var(--color-muted)] sm:text-2xl">{description}</p>
+      {tags.length > 0 && (
+        <div class="mt-8 flex flex-wrap gap-3 font-garamond text-sm uppercase tracking-[0.22em] text-[color:var(--color-soft)]">
+          {tags.map((tag) => <span>#{tag}</span>)}
+        </div>
+      )}
+    </header>
+    <div class="prose prose-neutral mt-12 max-w-none font-cn prose-p:leading-9 prose-a:text-[color:var(--color-text)] prose-headings:font-cn prose-headings:font-medium dark:prose-invert">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

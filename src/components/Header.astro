@@ -1,0 +1,52 @@
+---
+import ThemeToggle from './ThemeToggle.vue';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const items = [
+  { href: '/', label: '主页', sublabel: 'HOME', match: '/' },
+  { href: '/posts/', label: '文章', sublabel: 'ARTICLE', match: '/posts' },
+  { href: '/about/', label: '关于', sublabel: 'ABOUT', match: '/about' },
+];
+
+const isActive = (match: string) =>
+  match === '/' ? currentPath === '/' : currentPath.startsWith(match);
+---
+
+<header class="absolute left-0 top-0 z-30 h-[106px] w-full overflow-hidden">
+  <div class="slash-field pointer-events-none absolute -left-[41px] -top-[68px] hidden h-[153px] w-[1980px] font-display text-[140px] leading-none dark:block">
+    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  </div>
+  <nav class="relative h-full">
+    <div class="site-nav-items absolute left-[5.625vw] top-0 flex h-[93px] items-start gap-8 xl:left-[108px]">
+      {items.map((item) => (
+        <a
+          href={item.href}
+          class="site-nav-item group relative block h-[93px] w-[126px] shrink-0 transition duration-200"
+          aria-current={isActive(item.match) ? 'page' : undefined}
+        >
+          <span
+            class:list={[
+              'site-nav-label absolute left-[15px] top-2 block w-24 font-cn text-5xl leading-[1.2] tracking-tight transition',
+              isActive(item.match)
+                ? 'font-semibold text-[color:var(--color-text)]'
+                : 'text-[color:var(--color-muted)] group-hover:text-[color:var(--color-text)]',
+            ]}
+          >
+            {item.label}
+          </span>
+          <span class="site-nav-sublabel absolute left-[15px] top-[68px] block w-[97px] text-center font-garamond text-[15px] font-bold uppercase leading-none tracking-[0.45em] text-[color:var(--color-soft)]">
+            {item.sublabel}
+          </span>
+        </a>
+      ))}
+    </div>
+    <div class="absolute right-6 top-6 sm:right-12">
+      <ThemeToggle client:load />
+    </div>
+  </nav>
+</header>

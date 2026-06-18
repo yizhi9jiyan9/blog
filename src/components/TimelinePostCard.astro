@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+  href: string;
+}
+
+const { title, description, date, tags, href } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(date);
+---
+
+<article class="group relative grid gap-4 pl-10 md:grid-cols-[150px_1fr] md:gap-10 md:pl-0">
+  <time class="absolute -left-[152px] top-[4px] hidden w-28 font-garamond text-[20px] leading-none text-[color:var(--color-soft)] md:block" datetime={date.toISOString()}>
+    {formattedDate}
+  </time>
+  <div class="relative h-[160px] w-full max-w-[889px] transition duration-300 group-hover:translate-x-2">
+    <span class="absolute -left-[7px] top-[18px] hidden h-[14px] w-[14px] rounded-full border-2 border-[color:var(--color-line)] bg-[color:var(--color-bg)] md:block"></span>
+    <a href={href} class="block">
+      <h2 class="absolute left-[38px] top-[-6px] font-cn text-[36px] font-light leading-[1.45] tracking-tight text-[color:var(--color-text)]">
+        {title}
+      </h2>
+      <p class="absolute left-[38px] top-[49px] max-w-[875px] font-cn text-[32px] font-light leading-[1.45] text-[#aeaeae]">
+        {description}
+      </p>
+      {tags.length > 0 && (
+        <div class="absolute left-[38px] top-[134px] flex flex-wrap gap-4 font-garamond text-[13px] uppercase tracking-[0.24em] text-[color:var(--color-soft)]">
+          {tags.map((tag) => <span>#{tag}</span>)}
+        </div>
+      )}
+    </a>
+  </div>
+</article>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const keywords = '平面设计 巴洛克 哥特式\n中式 Attention 新古典主义\n现代主义。Minecraft\nNeuroDiversity。Explore\n唐朝';
+---
+
+<BaseLayout title="Ad infinitum" description="向着远方的个人网站">
+  <section class="home-hero">
+    <div class="home-artboard">
+      <div class="slash-field home-slash pointer-events-none hidden font-display leading-none dark:block">
+      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+      </div>
+      <p class="keyword-field home-keywords pointer-events-none font-cn font-light text-transparent">
+        {keywords}
+      </p>
+      <div class="home-heading z-10">
+        <h1 class="font-display font-normal leading-none tracking-tight text-[color:var(--color-text)]">
+          Ad infinitum
+        </h1>
+        <p class="font-cn font-medium leading-tight text-[color:var(--color-muted)] dark:text-[color:var(--color-text)]">
+          向着远方
+        </p>
+      </div>
+      <blockquote class="home-quote z-10 font-garamond leading-[1.25] text-[color:var(--color-text)]">
+        Don't forget. Always, somewhere, someone is fighting for you. As long as you remember for her, you are not alone.
+        <span class="font-cn text-[color:var(--color-text)]">——《魔法少女まどか☆マギカ》</span>
+      </blockquote>
+    </div>
+  </section>
+</BaseLayout>

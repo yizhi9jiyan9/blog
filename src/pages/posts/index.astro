@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimelinePostCard from '../../components/TimelinePostCard.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="文章 | Ad infinitum" description="按时间线排列的文章列表">
+  <section class="pattern-grid relative min-h-[2147px] overflow-hidden bg-[color:var(--color-bg)] shadow-[0_0_33.4px_5px_rgba(65,65,65,0.08)]">
+    <div class="absolute left-[258px] top-[175px] h-[1798px] w-0 border-l-[4px] border-[color:var(--color-line)]"></div>
+    <div class="absolute left-[258px] top-[355px] w-[889px] space-y-[92px]">
+      {posts.map((post) => (
+        <TimelinePostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          href={`/posts/${post.id}/`}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
