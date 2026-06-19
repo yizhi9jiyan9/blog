@@ -6,9 +6,16 @@ interface Props {
   description: string;
   date: Date;
   tags: string[];
+  wordCount: number;
+  readingTime: number;
+  headings: any[];
+  prevPost: any;
+  nextPost: any;
+  allPosts: any[];
+  currentPostId: string;
 }
 
-const { title, description, date, tags } = Astro.props;
+const { title, description, date, tags, wordCount, readingTime, headings, prevPost, nextPost, allPosts, currentPostId } = Astro.props;
 const formattedDate = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
   month: '2-digit',
@@ -17,22 +24,142 @@ const formattedDate = new Intl.DateTimeFormat('zh-CN', {
 ---
 
 <BaseLayout title={`${title} | Ad infinitum`} description={description}>
-  <article class="mx-auto min-h-screen max-w-4xl px-6 pb-24 pt-40 sm:px-10 lg:pt-52">
-    <a href="/posts/" class="font-garamond text-sm uppercase tracking-[0.28em] text-[color:var(--color-muted)] hover:text-[color:var(--color-text)]">
-      Back to Articles
-    </a>
-    <header class="mt-12 border-b border-[color:var(--color-line)] pb-10">
-      <time class="font-garamond text-lg text-[color:var(--color-muted)]" datetime={date.toISOString()}>{formattedDate}</time>
-      <h1 class="mt-5 font-cn text-5xl font-light leading-tight text-[color:var(--color-text)] sm:text-7xl">{title}</h1>
-      <p class="mt-6 font-cn text-xl font-light leading-relaxed text-[color:var(--color-muted)] sm:text-2xl">{description}</p>
-      {tags.length > 0 && (
-        <div class="mt-8 flex flex-wrap gap-3 font-garamond text-sm uppercase tracking-[0.22em] text-[color:var(--color-soft)]">
-          {tags.map((tag) => <span>#{tag}</span>)}
+  <div class="pattern-grid min-h-screen bg-[color:var(--color-bg)]">
+    <div class="relative mx-auto max-w-[1600px] px-6 pb-24 pt-40 sm:px-10 lg:pt-52">
+
+    <!-- 左侧文章列表时间线 -->
+    <aside class="fixed left-8 top-60 hidden w-64 overflow-y-auto lg:block scrollbar-hide" style="max-height: calc(100vh - 280px);">
+      <div class="relative">
+        <div class="absolute left-[7px] top-2 h-full w-[2px] bg-[color:var(--color-line)]"></div>
+        <nav class="relative space-y-6">
+          {allPosts.map((p: any) => (
+            <a
+              href={`/posts/${p.id}/`}
+              class={`group relative block pl-6 transition ${p.id === currentPostId ? '' : 'opacity-60 hover:opacity-100'}`}
+            >
+              <span class={`absolute left-0 top-[6px] h-4 w-4 rounded-full border-2 transition ${p.id === currentPostId ? 'border-[color:var(--color-text)] bg-[color:var(--color-text)]' : 'border-[color:var(--color-line)] bg-[color:var(--color-bg)] group-hover:border-[color:var(--color-text)]'}`}></span>
+              <p class={`font-cn text-sm leading-tight transition ${p.id === currentPostId ? 'font-medium text-[color:var(--color-text)]' : 'text-[color:var(--color-muted)] group-hover:text-[color:var(--color-text)]'}`}>
+                {p.data.title}
+              </p>
+              <time class="mt-1 block font-garamond text-xs text-[color:var(--color-soft)]">
+                {new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(p.data.date)}
+              </time>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </aside>
+
+    <!-- 右侧目录 -->
+    {headings.length > 0 && (
+      <aside class="fixed right-8 top-60 hidden w-64 xl:block">
+        <nav class="space-y-2">
+          <p class="mb-4 font-garamond text-xs uppercase tracking-[0.28em] text-[color:var(--color-muted)]">目录</p>
+          {headings.map((heading: any) => (
+            <a
+              href={`#${heading.slug}`}
+              class="toc-link block font-cn text-sm leading-relaxed text-[color:var(--color-muted)] transition hover:text-[color:var(--color-text)]"
+              style={`padding-left: ${(heading.depth - 1) * 12}px`}
+            >
+              {heading.text}
+            </a>
+          ))}
+        </nav>
+      </aside>
+    )}
+
+    <article class="mx-auto max-w-4xl">
+      <!-- 返回按钮 -->
+      <a href="/posts/" class="inline-flex items-center gap-2 font-garamond text-sm uppercase tracking-[0.28em] text-[color:var(--color-muted)] transition hover:text-[color:var(--color-text)]">
+        <span>←</span> 返回文章列表
+      </a>
+      
+      <header class="mt-12 border-b border-[color:var(--color-line)] pb-10">
+        <time class="font-garamond text-lg text-[color:var(--color-muted)]" datetime={date.toISOString()}>{formattedDate}</time>
+        <h1 class="mt-5 font-cn text-5xl font-light leading-tight text-[color:var(--color-text)] sm:text-7xl">{title}</h1>
+        <p class="mt-6 font-cn text-xl font-light leading-relaxed text-[color:var(--color-muted)] sm:text-2xl">{description}</p>
+        
+        <div class="mt-6 flex items-center gap-4 font-garamond text-sm text-[color:var(--color-muted)]">
+          <span>{wordCount} 字</span>
+          <span>·</span>
+          <span>预计阅读 {readingTime} 分钟</span>
         </div>
-      )}
-    </header>
-    <div class="prose prose-neutral mt-12 max-w-none font-cn prose-p:leading-9 prose-a:text-[color:var(--color-text)] prose-headings:font-cn prose-headings:font-medium dark:prose-invert">
-      <slot />
+
+        {tags.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-3 font-garamond text-sm uppercase tracking-[0.22em] text-[color:var(--color-soft)]">
+            {tags.map((tag) => <span>#{tag}</span>)}
+          </div>
+        )}
+      </header>
+      
+      <div class="prose prose-neutral mt-12 max-w-none font-cn prose-p:leading-9 prose-a:text-[color:var(--color-text)] prose-headings:font-cn prose-headings:font-medium dark:prose-invert">
+        <slot />
+      </div>
+
+      <!-- 上一篇/下一篇导航 -->
+      <nav class="mt-20 grid gap-6 border-t border-[color:var(--color-line)] pt-12 sm:grid-cols-2">
+        {prevPost && (
+          <a href={`/posts/${prevPost.id}/`} class="group block rounded border border-[color:var(--color-line)] p-6 transition hover:border-[color:var(--color-text)]">
+            <p class="font-garamond text-xs uppercase tracking-[0.28em] text-[color:var(--color-muted)]">上一篇</p>
+            <p class="mt-3 font-cn text-xl font-light text-[color:var(--color-text)] transition group-hover:text-[color:var(--color-muted)]">{prevPost.data.title}</p>
+          </a>
+        )}
+        {nextPost && (
+          <a href={`/posts/${nextPost.id}/`} class="group block rounded border border-[color:var(--color-line)] p-6 text-right transition hover:border-[color:var(--color-text)] sm:col-start-2">
+            <p class="font-garamond text-xs uppercase tracking-[0.28em] text-[color:var(--color-muted)]">下一篇</p>
+            <p class="mt-3 font-cn text-xl font-light text-[color:var(--color-text)] transition group-hover:text-[color:var(--color-muted)]">{nextPost.data.title}</p>
+          </a>
+        )}
+      </nav>
+    </article>
+
+    <!-- 返回顶部按钮 -->
+    <button
+      id="back-to-top"
+      class="fixed bottom-8 right-8 hidden h-12 w-12 items-center justify-center rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-bg)] text-[color:var(--color-text)] shadow-lg transition hover:border-[color:var(--color-text)]"
+      aria-label="返回顶部"
+    >
+      ↑
+    </button>
     </div>
-  </article>
+  </div>
 </BaseLayout>
+
+<script>
+  const backToTop = document.getElementById('back-to-top');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      backToTop?.classList.remove('hidden');
+      backToTop?.classList.add('flex');
+    } else {
+      backToTop?.classList.add('hidden');
+      backToTop?.classList.remove('flex');
+    }
+  });
+
+  backToTop?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // 高亮当前目录项
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    headings.forEach((heading) => {
+      const top = heading.getBoundingClientRect().top;
+      if (top < 200) {
+        current = heading.id;
+      }
+    });
+    
+    tocLinks.forEach((link) => {
+      link.classList.remove('!text-[color:var(--color-text)]', 'font-medium');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('!text-[color:var(--color-text)]', 'font-medium');
+      }
+    });
+  });
+</script>

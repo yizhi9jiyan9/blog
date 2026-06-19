@@ -9,9 +9,9 @@ const posts = (await getCollection('posts'))
 ---
 
 <BaseLayout title="文章 | Ad infinitum" description="按时间线排列的文章列表">
-  <section class="pattern-grid relative min-h-[2147px] overflow-hidden bg-[color:var(--color-bg)] shadow-[0_0_33.4px_5px_rgba(65,65,65,0.08)]">
-    <div class="absolute left-[258px] top-[175px] h-[1798px] w-0 border-l-[4px] border-[color:var(--color-line)]"></div>
-    <div class="absolute left-[258px] top-[355px] w-[889px] space-y-[92px]">
+  <section class="pattern-grid relative bg-[color:var(--color-bg)] pb-[100px] pt-[355px] shadow-[0_0_33.4px_5px_rgba(65,65,65,0.08)]" style="min-height: 100vh;">
+    <div class="absolute left-[258px] top-[175px] w-0 border-l-[4px] border-[color:var(--color-line)]" style="height: calc(100% - 275px);"></div>
+    <div class="relative left-[258px] w-[1200px] space-y-[92px]">
       {posts.map((post) => (
         <TimelinePostCard
           title={post.data.title}

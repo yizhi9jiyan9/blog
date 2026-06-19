@@ -17,7 +17,7 @@ const isActive = (match: string) =>
   match === '/' ? currentPath === '/' : currentPath.startsWith(match);
 ---
 
-<header class="absolute left-0 top-0 z-30 h-[106px] w-full overflow-hidden">
+<header class="fixed left-0 top-0 z-30 h-[93px] w-full overflow-hidden transition-all duration-300" id="site-header">
   <div class="pointer-events-none absolute left-0 top-0 h-[106px] w-full dark:hidden" style="background-image: url('/images/header-bg-light.svg'); background-repeat: repeat-x; background-size: 1841px 106px; background-position: left top;"></div>
   <div class="slash-field pointer-events-none absolute -left-[41px] -top-[68px] hidden h-[153px] w-[1980px] font-display text-[140px] leading-none dark:block">
     \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -53,3 +53,46 @@ const isActive = (match: string) =>
     </div>
   </nav>
 </header>
+
+<script>
+  const header = document.getElementById('site-header');
+  let lastScroll = 0;
+
+  function updateHeaderHeight() {
+    const isDark = document.documentElement.classList.contains('dark');
+    header?.style.setProperty('height', isDark ? '93px' : '93px');
+  }
+
+  updateHeaderHeight();
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (currentScroll > 50) {
+      header?.style.setProperty('backdrop-filter', 'blur(12px)');
+      header?.style.setProperty('background', 'rgba(255, 255, 255, 0.01)');
+    } else {
+      header?.style.setProperty('backdrop-filter', 'none');
+      header?.style.setProperty('background', 'transparent');
+    }
+    
+    lastScroll = currentScroll;
+  });
+
+  // Handle dark mode
+  const observer = new MutationObserver(() => {
+    const currentScroll = window.scrollY;
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    updateHeaderHeight();
+    
+    if (currentScroll > 50) {
+      header?.style.setProperty('background', isDark ? 'rgba(26, 26, 26, 0.01)' : 'rgba(255, 255, 255, 0.01)');
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>

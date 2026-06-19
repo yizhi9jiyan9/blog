@@ -3,17 +3,45 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
-  return posts.map((post) => ({
+  const posts = (await getCollection('posts', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  
+  return posts.map((post, index) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { 
+      post,
+      allPosts: posts,
+      prevPost: index < posts.length - 1 ? posts[index + 1] : null,
+      nextPost: index > 0 ? posts[index - 1] : null,
+    },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post, allPosts, prevPost, nextPost } = Astro.props;
+const { Content, headings } = await render(post);
+
+function countWords(text: string) {
+  const chinese = text.match(/[\u4e00-\u9fa5]/g) || [];
+  const english = text.match(/[a-zA-Z]+/g) || [];
+  return chinese.length + english.length;
+}
+
+const wordCount = countWords(post.body);
+const readingTime = Math.ceil(wordCount / 300);
 ---
 
-<PostLayout title={post.data.title} description={post.data.description} date={post.data.date} tags={post.data.tags}>
+<PostLayout 
+  title={post.data.title} 
+  description={post.data.description} 
+  date={post.data.date} 
+  tags={post.data.tags}
+  wordCount={wordCount}
+  readingTime={readingTime}
+  headings={headings}
+  prevPost={prevPost}
+  nextPost={nextPost}
+  allPosts={allPosts}
+  currentPostId={post.id}
+>
   <Content />
 </PostLayout>
