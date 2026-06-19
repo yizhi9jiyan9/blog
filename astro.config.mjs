@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://rocora.github.io',
+  site: 'https://rocora.las.cat',
   integrations: [vue()],
   vite: {
     plugins: [tailwindcss()],
