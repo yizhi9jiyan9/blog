@@ -1,27 +1,66 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const interests = ['平面设计', '巴洛克', '哥特式', '中式', 'Attention', '新古典主义', '现代主义', 'Minecraft', 'NeuroDiversity', 'Explore', '唐朝'];
 ---
 
-<BaseLayout title="关于 | Ad infinitum" description="关于这个个人网站和它的审美方向">
-  <section class="relative min-h-screen overflow-hidden px-6 pb-24 pt-40 sm:px-12 lg:px-[240px] lg:pt-52">
-    <div class="slash-field pointer-events-none absolute -left-8 top-20 font-display text-[14vw] leading-none">
-      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+<BaseLayout title="关于 | Ad infinitum" description="关于这个个人网站">
+  <section class="relative flex min-h-screen items-center overflow-hidden">
+    <!-- 左侧文字区 -->
+    <div class="relative z-10 w-full px-8 py-20 lg:w-1/3 lg:px-24">
+      <!-- 斜杠背景装饰 -->
+      <div class="slash-field pointer-events-none absolute -left-[20px] top-[calc(15%-80px)] h-[300px] w-[600px] font-display text-[210px] leading-none opacity-40">
+        ////////////////////
+      </div>
+
+      <div class="relative">
+        <p class="font-garamond text-sm uppercase tracking-[0.4em] text-[color:var(--color-muted)]" style="margin-left: 15px;">A B O U T</p>
+        <h1 class="mt-2 font-cn text-7xl font-medium text-[color:var(--color-text)] sm:text-8xl">关于</h1>
+        
+        <div class="my-12 space-y-1">
+          <div class="h-[1px] w-12 bg-[color:var(--color-line)]"></div>
+          <div class="h-[1px] w-12 bg-[color:var(--color-line)]"></div>
+        </div>
+
+        <div class="space-y-4 font-cn text-lg leading-relaxed text-[color:var(--color-muted)]">
+          <p>在文字的海洋里；</p>
+          <p>无尽的思想无法被表达；</p>
+          <p>我们能做到的，仅仅是将主体性紧紧保护，</p>
+          <p>把自己的思想隐藏起来，</p>
+          <p>以几乎荒谬的方式表达出来</p>
+          <p>让一位幸运的旅人去挖掘这深藏的思想。</p>
+        </div>
+
+        <div class="my-12 space-y-1">
+          <div class="h-[1px] w-12 bg-[color:var(--color-line)]"></div>
+          <div class="h-[1px] w-12 bg-[color:var(--color-line)]"></div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 rotate-12 font-display text-2xl text-[color:var(--color-soft)] opacity-30">//</div>
+      </div>
     </div>
-    <div class="relative z-10 max-w-5xl">
-      <p class="font-garamond text-sm font-bold uppercase tracking-[0.45em] text-[color:var(--color-soft)]">About</p>
-      <h1 class="mt-5 font-cn text-6xl font-light leading-tight text-[color:var(--color-text)] sm:text-8xl">关于</h1>
-      <p class="mt-10 max-w-3xl font-cn text-2xl font-light leading-loose text-[color:var(--color-muted)]">
-        这里会成为一个偏个人表达的空间：记录文章、设计、兴趣和一些向着远方的想法。整体视觉会保留 Figma 里中英文混排、衬线字体和明暗主题的气质。
-      </p>
-    </div>
-    <div class="relative z-10 mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {interests.map((item) => (
-        <span class="border border-[color:var(--color-line)] px-5 py-4 font-cn text-2xl font-light text-[color:var(--color-text)]">
-          {item}
-        </span>
-      ))}
+
+    <!-- 右侧图标矩阵 -->
+    <div class="absolute right-0 top-[100px] hidden h-full w-2/3 overflow-hidden lg:block">
+      <div class="grid h-full w-full grid-cols-16 gap-8 p-12">
+        {Array.from({ length: 256 }).map(() => {
+          const rand = Math.random();
+          let opacity, blur, color;
+          if (rand < 0.05) {
+            opacity = 0.95;
+            blur = 'none';
+            color = 'var(--color-text)';
+          } else {
+            opacity = Math.random() * 0.7 + 0.1;
+            blur = Math.random() < 0.3 ? `blur(${Math.random() * 8}px)` : 'none';
+            color = 'var(--color-line)';
+          }
+          return (
+            <div class="flex flex-col items-center justify-center" style={`opacity: ${opacity}; filter: ${blur}`}>
+              <div class="h-9 w-9 rounded-full" style={`background: ${color}`}></div>
+              <div class="mt-4 h-0 w-0 border-b-[54px] border-l-[27px] border-r-[27px] border-l-transparent border-r-transparent" style={`border-bottom-color: ${color}`}></div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   </section>
 </BaseLayout>
