@@ -72,6 +72,8 @@ a {
 .slash-field {
   color: rgba(255, 255, 255, 0.9);
   filter: blur(5.65px);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .keyword-field {
@@ -79,11 +81,14 @@ a {
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-stroke: 0.7px #8d8d8d;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-text-stroke: 1.8px #b1adad;
+  filter: blur(0.3px);
 }
 
 .dark .keyword-field {
-  -webkit-text-stroke: 0.9px #7e7e7e;
+  -webkit-text-stroke: 2px #7e7e7e;
 }
 
 .pattern-grid {
@@ -139,6 +144,8 @@ a {
 
 .home-heading h1 {
   font-size: 6.6667cqw;
+  font-feature-settings: 'liga' 1, 'clig' 1;
+  font-variant-ligatures: common-ligatures;
 }
 
 .home-heading p {

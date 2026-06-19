@@ -1,0 +1,49 @@
+<svg width="1841" height="106" viewBox="0 0 1841 106" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g clip-path="url(#clip0_2033_15)">
+<mask id="mask0_2033_15" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1841" height="106">
+<rect width="1841" height="106" fill="url(#paint0_linear_2033_15)"/>
+</mask>
+<g mask="url(#mask0_2033_15)">
+<rect x="-40" width="1920" height="106" fill="url(#pattern0_2033_15)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_2033_15" x1="920.5" y1="14" x2="920.5" y2="106" gradientUnits="userSpaceOnUse">
+<stop offset="0.0240384" stop-color="white"/>
+<stop offset="0.351597" stop-color="white" stop-opacity="0.29"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_2033_15">
+<rect width="1841" height="106" fill="white"/>
+</clipPath>
+<pattern id="pattern0_2033_15" patternUnits="userSpaceOnUse" patternTransform="matrix(255.532 0 0 109.852 855.288 2.53297)" preserveAspectRatio="none" viewBox="0.84436 0.844322 85.1774 36.6172" width="1" height="1">
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(-42.5887 -54.9258)"/>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(0 -73.2344)"/>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(42.5887 -54.9258)"/>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(-42.5887 -18.3086)"/>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(0 -36.6172)"/>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(42.5887 -18.3086)"/>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(-42.5887 18.3086)"/>
+<g id="pattern0_2033_15_inner">
+<rect y="6.34743" width="6" height="25" rx="3" transform="rotate(-20 0 6.34743)" fill="url(#paint1_linear_2033_15)"/>
+<rect x="16.6416" y="15.0521" width="6" height="25" rx="3" transform="rotate(-20 16.6416 15.0521)" fill="url(#paint2_linear_2033_15)"/>
+<rect x="30.6416" y="2.05212" width="6" height="25" rx="3" transform="rotate(-20 30.6416 2.05212)" fill="url(#paint3_linear_2033_15)"/>
+</g>
+<use xlink:href="#pattern0_2033_15_inner" transform="translate(42.5887 18.3086)"/>
+</pattern><linearGradient id="paint1_linear_2033_15" x1="3" y1="6.34743" x2="3" y2="31.3474" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.341346" stop-color="#9E9E9E"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint2_linear_2033_15" x1="19.6416" y1="15.0521" x2="19.6416" y2="40.0521" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.341346" stop-color="#9E9E9E"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint3_linear_2033_15" x1="33.6416" y1="2.05212" x2="33.6416" y2="27.0521" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.341346" stop-color="#9E9E9E"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg>

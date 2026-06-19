@@ -8,9 +8,9 @@ interface Props {
 const { currentPath } = Astro.props;
 
 const items = [
-  { href: '/', label: '主页', sublabel: 'HOME', match: '/' },
-  { href: '/posts/', label: '文章', sublabel: 'ARTICLE', match: '/posts' },
-  { href: '/about/', label: '关于', sublabel: 'ABOUT', match: '/about' },
+  { href: '/', label: '主页', sublabel: 'HOME', match: '/', activeSvg: 'nav-home-active.svg', activeSvgDark: 'nav-home-active-dark.svg' },
+  { href: '/posts/', label: '文章', sublabel: 'ARTICLE', match: '/posts', activeSvg: 'nav-article-active.svg', activeSvgDark: 'nav-article-active-dark.svg' },
+  { href: '/about/', label: '关于', sublabel: 'ABOUT', match: '/about', activeSvg: 'nav-about-active.svg', activeSvgDark: 'nav-about-active-dark.svg' },
 ];
 
 const isActive = (match: string) =>
@@ -18,30 +18,33 @@ const isActive = (match: string) =>
 ---
 
 <header class="absolute left-0 top-0 z-30 h-[106px] w-full overflow-hidden">
+  <div class="pointer-events-none absolute left-0 top-0 h-[106px] w-full dark:hidden" style="background-image: url('/images/header-bg-light.svg'); background-repeat: repeat-x; background-size: 1841px 106px; background-position: left top;"></div>
   <div class="slash-field pointer-events-none absolute -left-[41px] -top-[68px] hidden h-[153px] w-[1980px] font-display text-[140px] leading-none dark:block">
     \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   </div>
   <nav class="relative h-full">
-    <div class="site-nav-items absolute left-[5.625vw] top-0 flex h-[93px] items-start gap-8 xl:left-[108px]">
+    <div class="site-nav-items absolute left-[5.625vw] top-0 flex h-[100px] items-start gap-8 xl:left-[108px]">
       {items.map((item) => (
         <a
           href={item.href}
-          class="site-nav-item group relative block h-[93px] w-[126px] shrink-0 transition duration-200"
+          class="site-nav-item group relative block h-[100px] w-[126px] shrink-0 transition duration-200"
           aria-current={isActive(item.match) ? 'page' : undefined}
         >
-          <span
-            class:list={[
-              'site-nav-label absolute left-[15px] top-2 block w-24 font-cn text-5xl leading-[1.2] tracking-tight transition',
-              isActive(item.match)
-                ? 'font-semibold text-[color:var(--color-text)]'
-                : 'text-[color:var(--color-muted)] group-hover:text-[color:var(--color-text)]',
-            ]}
-          >
-            {item.label}
-          </span>
-          <span class="site-nav-sublabel absolute left-[15px] top-[68px] block w-[97px] text-center font-garamond text-[15px] font-bold uppercase leading-none tracking-[0.45em] text-[color:var(--color-soft)]">
-            {item.sublabel}
-          </span>
+          {isActive(item.match) ? (
+            <>
+              <div class="pointer-events-none absolute inset-0 -top-[7px] dark:hidden" style={`background-image: url('/images/${item.activeSvg}'); background-size: 126px 93px; background-repeat: no-repeat;`}></div>
+              <div class="pointer-events-none absolute inset-0 -top-[7px] hidden dark:block" style={`background-image: url('/images/${item.activeSvgDark}'); background-size: 126px 93px; background-repeat: no-repeat;`}></div>
+            </>
+          ) : (
+            <>
+              <span class="site-nav-label absolute left-[15px] top-2 block w-24 font-cn text-5xl leading-[1.2] tracking-tight transition text-[color:var(--color-muted)] group-hover:text-[color:var(--color-text)]">
+                {item.label}
+              </span>
+              <span class="site-nav-sublabel absolute left-[15px] top-[63px] block w-[97px] text-center font-garamond text-[15px] font-bold uppercase leading-none tracking-[0.45em] text-[color:var(--color-soft)]">
+                {item.sublabel}
+              </span>
+            </>
+          )}
         </a>
       ))}
     </div>
