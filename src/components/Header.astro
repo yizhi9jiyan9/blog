@@ -6,16 +6,16 @@ interface Props {
 }
 
 const { currentPath } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
 
 const items = [
-  { href: base, label: '主页', sublabel: 'HOME', match: 'home', activeSvg: 'nav-home-active.svg', activeSvgDark: 'nav-home-active-dark.svg' },
+  { href: `${base}/`, label: '主页', sublabel: 'HOME', match: 'home', activeSvg: 'nav-home-active.svg', activeSvgDark: 'nav-home-active-dark.svg' },
   { href: `${base}/posts/`, label: '文章', sublabel: 'ARTICLE', match: `${base}/posts`, activeSvg: 'nav-article-active.svg', activeSvgDark: 'nav-article-active-dark.svg' },
   { href: `${base}/about/`, label: '关于', sublabel: 'ABOUT', match: `${base}/about`, activeSvg: 'nav-about-active.svg', activeSvgDark: 'nav-about-active-dark.svg' },
 ];
 
 const isActive = (match: string) =>
-  match === 'home' ? currentPath === base || currentPath === `${base}/` : currentPath.startsWith(match);
+  match === 'home' ? currentPath === `${base}/` || currentPath === base || currentPath === '/' : currentPath.startsWith(match);
 ---
 
 <header class="fixed left-0 top-0 z-30 h-[93px] w-full overflow-hidden transition-all duration-300" id="site-header">
