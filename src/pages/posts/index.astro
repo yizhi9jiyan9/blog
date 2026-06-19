@@ -19,7 +19,7 @@ const posts = (await getCollection('posts'))
           description={post.data.description}
           date={post.data.date}
           tags={post.data.tags}
-          href={`${base}posts/${post.id}/`}
+          href={`${base}/posts/${post.id}/`}
         />
       ))}
     </div>
